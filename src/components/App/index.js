@@ -1,16 +1,40 @@
 
 import './index.scss'
-import React from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
-import Home from '../Home'
+import { AddProject } from '../AddProject'
 
-const App = () => (
-  <div className="container">
-    <BrowserRouter>
-      <Route exact path="/" component={Home}/>
-    </BrowserRouter>
-  </div>
-);
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      allProjects: [
+        // {
+        //   id: 1,
+        //   name: '',
+        //   startDate: '',
+        //   weeks: []
+        // }
+      ]
+    }
+    // this.addProject = this.addProject.bind(this) only if using addProject() {};
+  }
 
-export default App;
+  addProject = (newProject) => {
+    this.setState({
+      allProjects: [
+        ...this.state.allProjects,
+        newProject
+      ]
+    });
+    console.log(this.state);
+  }
+
+
+  render() {
+    return (
+      <AddProject onNewProject={this.addProject} />
+    );
+  }
+}
